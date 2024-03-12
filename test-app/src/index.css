@@ -13,7 +13,7 @@ code {
 }
 .sortable-list {
 	margin: auto;
-	width: 40rem; 
+	width: 20rem; 
 	align-content: auto;
 	background: #ffffff; 
 	border-radius: 10px; 
@@ -28,7 +28,8 @@ code {
 	display: flex; 
 	cursor: move; 
 	background: #ffffff; 
-	align-items: center; 
+	align-items: center;
+  word-break: break-word;
 	border-radius: 5px; 
 	padding: .5rem .5rem;
 	margin-bottom: 10px; 

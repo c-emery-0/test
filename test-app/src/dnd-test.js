@@ -54,12 +54,25 @@ export default function DndTest({file}) {
     })
   );
 
+  
+  function handleDragOver(event, targetItem) {
+
+    const { active, over } = event;
+
+    if (active.id !== over.id) {
+      setitems((items) => {
+        const oldIndex = items.indexOf(active.id);
+        const newIndex = items.indexOf(over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  };
+
   return (
-    <div className="p-5">
-      <div className="w-[300px]">
         <DndContext
           sensors={sensors}
-          onDragEnd={handleDragEnd}
+          onDragOver={handleDragOver}
           modifiers={[restrictToVerticalAxis]}
         >
           <div className="border">
@@ -73,20 +86,6 @@ export default function DndTest({file}) {
             </SortableContext>
           </div>
         </DndContext>
-      </div>
-    </div>
   );
 
-  function handleDragEnd(event) {
-    const { active, over } = event;
-
-    if (active.id !== over.id) {
-      setitems((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
-
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
-  }
 }
