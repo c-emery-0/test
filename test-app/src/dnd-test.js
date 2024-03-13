@@ -11,12 +11,11 @@ import {
   useSortable,
   SortableContext,
   sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
   arrayMove
 } from "@dnd-kit/sortable";
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
+import { snapGridModifier } from "./asdf.ts"
 
 function SortableItem(props) {
   const {
@@ -44,24 +43,28 @@ function SortableItem(props) {
     </div>
   );
 }
-
-export default function DndTest({file}) {
+export const DndContainer = ({file}) => {
   const [items, setitems] = useState(file);
+  
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates
     })
   );
-
   
+  const [activeId, setActiveId] = useState(null);
+
+  function handleDragStart(event) {
+    setActiveId(event.active.id);
+  }
   function handleDragOver(event, targetItem) {
 
     const { active, over } = event;
 
-    if (active.id !== over.id) {
+    if (activeId !== over.id) {
       setitems((items) => {
-        const oldIndex = items.indexOf(active.id);
+        const oldIndex = items.indexOf(activeId);
         const newIndex = items.indexOf(over.id);
 
         return arrayMove(items, oldIndex, newIndex);
@@ -73,19 +76,19 @@ export default function DndTest({file}) {
         <DndContext
           sensors={sensors}
           onDragOver={handleDragOver}
-          modifiers={[restrictToVerticalAxis]}
+          onDragStart={handleDragStart}
+          modifiers={[snapGridModifier]}
         >
-          <div className="border">
             <SortableContext
               items={items}
-              strategy={verticalListSortingStrategy}
             >
               {items.map((item) => (
                 <SortableItem key={item} id={item} />
               ))}
             </SortableContext>
-          </div>
+
         </DndContext>
   );
 
 }
+export default DndContainer;
