@@ -15,7 +15,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
-import { snapGridModifier } from "./asdf.ts"
+import { snapGridModifier } from "./snapGridModifier.ts"
 
 function SortableItem(props) {
   const {
