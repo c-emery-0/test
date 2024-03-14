@@ -29,9 +29,9 @@ export const snapGridModifier: Modifier = ({
       if (rect.left + transform.x <= boundingRect.left) {
         xval = boundingRect.left - rect.left
       } else if (rect.right + transform.x >= boundingRect.left + boundingRect.width)  {
-        //xval = boundingRect.left + boundingRect.width - rect.right              
+        xval = boundingRect.left + boundingRect.width - rect.right              
         xtransform = (rect.width - gridSize) / rect.width
-        //xval = Math.ceil(transform.x / gridSize) * gridSize
+        xval = Math.ceil(xval / gridSize) * gridSize
       }
     }
 
