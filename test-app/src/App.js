@@ -4,26 +4,9 @@ import { useState } from "react";
 
 export default function App() {
   
-  const [items, setItems] = useState([
-    {
-        id: 1,
-        name: 'firstasdjkahsaskakskdjasjkdjkakjsssssssssssssskjskkdasd aasdasdakslk',
-        positionx: null,
-        positiony: null,
-    },
-    {
-        id: 2,
-        name: 'second',
-        positionx: null,
-        positiony: null,
-    },
-    {
-        id: 3,
-        name: 'third',
-        positionx: null,
-        positiony: null,
-    },
-])
+  const [items, setItems] = useState(() =>
+    Array.from(Array(20).keys()).map((it) => "test " + String(it + 1))
+  );
 
   return (
     <div className="App">
